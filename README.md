@@ -1,2 +1,5 @@
 # SlimActivity
-os documentos abaixo nã contem o composer, é necessário instalar
+Os documentos abaixo não contem o composer, é necessário instalar.
+
+composer
+composer require slim/slim:3.*
