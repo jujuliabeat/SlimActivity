@@ -1,6 +1,9 @@
 <?php
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
+
+use Slim\Http\Request;
+use Slim\Http\Response;
+use Slim\App;
+
 
 require 'vendor/autoload.php';
 
@@ -56,14 +59,86 @@ $app->get('/estudantes',function(Request $req, Response $resp, $params){
 
 $app->post('/estudantes', function(Request $req, Response $resp, $params){ 
 
-    $estudanteCadastrado = $req->getParsedBody();
+    $estudante = $req->getParsedBody();
 
 
-    //inserir no banco de dados 
-    $resp->withStatus('201');
+    //Inserir no banco de dados 
+    //$resp->withStatus('201');
 
-    return $resp->withJson($estudanteCadastrado);
+    $estudante['id'] = rand(1, 1000);
+
+    return $resp->withJson($estudante)->withStatus(201);
 
 });
+
+// Verbo Put é o verbo para atualização 
+$app->put('/estudantes/{id}', function(Request $req, Response $resp, $params){ 
+
+    try {
+
+        $estudante = $req->getParsedBody();
+    
+    
+        //Atualiza no banco de dados 
+    
+        $estudante['id'] = $params['id'];
+
+        if($estudante['id'] == '99') {
+
+            throw new Exception("Usuário não encontrado");
+
+        }
+    
+        return $resp->withJson($estudante)->withStatus(200);
+
+    } catch(Exception $e) {
+
+        $erro = [
+
+            'erro' => $e->getMessage(),
+            'outras_infos' => "???"
+
+        ];
+            
+
+        return $resp->withjson($erro)->withStatus(418);
+        
+    }
+
+});
+
+$app->delete('/estudantes/{id}', function(Request $req, Response $resp, $params){ 
+
+    try {
+
+        //Deletar no banco de dados 
+    
+        $estudante['id'] = $params['id'];
+
+        if($estudante['id'] == '99') {
+
+            throw new Exception("Usuário não encontrado");
+
+        }
+    
+        return $resp->withStatus(204);
+
+    } catch(Exception $e) {
+
+        $erro = [
+
+            'erro' => $e->getMessage(),
+            'outras_infos' => "???"
+
+        ];
+            
+
+        return $resp->withjson($erro)->withStatus(418);
+        
+    }
+
+});
+
+
 
 $app->run();
