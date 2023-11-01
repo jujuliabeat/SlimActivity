@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    
+    <title>Document</title>
+
+</head>
+<body>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        // axios.get("http://localhost:8080/estudantes").then((resposta)=>{
+
+        //     console.log(resposta.data);
+
+        // }).catch((erro)=>{
+
+        //     console.log("Deu erro: " + erro);
+
+        // }).finally(()=>{
+
+        //     console.log("Fim da operação");
+        // })
+
+
+        axios.post("http://localhost:8080/estudantes", {
+            nome: 'Mosquito',
+            nascimento: '1/11/2005',
+            email: 'erick@gmail.com'
+        })
+
+        .then(function (response) {
+            console.log(response.data.email);
+        })
+
+        .catch(function (error) {
+            console.error(error);
+        });
+
+    </script>
+
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="app">
+        
+        {{message}}
+
+        <br><br>
+
+        <input type="text" v-model="message" placeholder="me altere!">
+    
+    </div>
+
+    <script>
+
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!'
+                }
+            }
+        }).mount('#app')
+
+    </script>
+
+</body>
+</html>
