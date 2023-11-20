@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Olá Vue! </title>
+
+</head>
+<body>
+
+    <div id="app">
+
+        <form action="">
+
+            <input type="text" v-model="job" placeholder="Informe um valor">
+
+            <!-- <input type="submit" v-on:click="submitForm"> -->
+
+        </form>
+
+        <p> Meu nome é : {{name}} e tenho : {{age}} anos de idade.</p>
+        <p>Atualmente trabalho como {{job}}</p>
+
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+
+        const app = {
+            app : 'MeuApp',
+            data() {
+                return {
+                    name : 'Júlia Beatriz',
+                    age : 18,
+                    job : '',                   
+                    job_input : ''                    
+                }
+            },
+
+            methods : {
+                submitForm(form) {
+                    form.preventDefault();
+                    this.job = this.job_input
+                }
+            }
+        }
+
+        Vue.createApp(app).mount('#app');
+
+    </script>
+</body>
+</html>
